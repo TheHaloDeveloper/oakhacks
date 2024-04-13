@@ -13,7 +13,6 @@ body {
     font-weight: 600;
     font-style: normal;
     text-align: center;
-    font-size: 50px;
 }
 
 #blocker {
@@ -22,4 +21,37 @@ body {
     position: absolute;
     background-color: black;
     opacity: 0;
+}
+
+#title {
+    color: white;
+}
+
+.glow {
+    font-size: 80px;
+    color: #fff;
+    text-align: center;
+    -webkit-animation: flicker 10s infinite, glow 1s ease-in-out infinite alternate;
+    -moz-animation: flicker 10s infinite, glow 1s ease-in-out infinite alternate;
+    animation: flicker 10s infinite, glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+    0%, 40%, 45%, 50%, 100% {
+        color: #fff;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60000, 0 0 40px #e60000, 0 0 50px #e60000, 0 0 60px #e60000, 0 0 70px #e60000;
+    }
+    42.5%, 47.5% {
+        color: #000;
+        text-shadow: 0 0 10px #000, 0 0 20px #000, 0 0 30px #e60000, 0 0 40px #e60000, 0 0 50px #e60000, 0 0 60px #e60000, 0 0 70px #e60000;
+    }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60000, 0 0 40px #e60000, 0 0 50px #e60000, 0 0 60px #e60000, 0 0 70px #e60000;
+    }
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000, 0 0 60px #ff0000, 0 0 70px #ff0000, 0 0 80px #ff0000;
+    }
 }

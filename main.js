@@ -6,12 +6,19 @@ let scene = new THREE.Scene()
 let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
 let renderer = new THREE.WebGLRenderer({antialias: true});
 let tl = new TimelineMax();
+let textureLoader = new THREE.TextureLoader()
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('scene').appendChild(renderer.domElement)
 
 let sphereGeo = new THREE.SphereGeometry(3, 32, 16)
-let sphereMat = new THREE.MeshNormalMaterial({transparent: true});
+
+let texture = textureLoader.load('images/texture.jpeg');
+texture.wrapS = THREE.RepeatWrapping;
+texture.wrapT = THREE.RepeatWrapping;
+texture.magFilter = THREE.NearestFilter
+texture.repeat.set(2, 1);
+let sphereMat = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: true, map: texture});
 let sphereMesh = new THREE.Mesh(sphereGeo, sphereMat);
 
 scene.add(sphereMesh)
