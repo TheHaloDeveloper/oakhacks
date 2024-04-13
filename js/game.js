@@ -5,7 +5,7 @@ let username = new URLSearchParams(window.location.search).get("username")
 // history.replaceState({}, document.title, window.location.pathname);
 
 let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100000);
 let renderer = new THREE.WebGLRenderer({antialias: true});
 
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -16,6 +16,15 @@ camera.position.set(0, -22, 13);
 camera.rotation.set(1, 0, 0);
 camera.up.set(0, 0, 1);
 
+let textureLoader = new THREE.TextureLoader()
+
+let skyGeometry = new THREE.SphereGeometry(50000, 64, 32);
+let skyMaterial = new THREE.MeshBasicMaterial({map: textureLoader.load('assets/images/skybox.jpg'), side: THREE.BackSide})
+let sky = new THREE.Mesh(skyGeometry, skyMaterial);
+
+sky.name = 'Sky';
+scene.add(sky);
+
 let labelRenderer = new THREE.CSS2DRenderer();
 labelRenderer.setSize( window.innerWidth, window.innerHeight );
 labelRenderer.domElement.style.position = 'absolute';
@@ -25,6 +34,7 @@ document.getElementById('scene').appendChild(labelRenderer.domElement);
 
 //Controls
 let controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.maxDistance = 1000
 
 //Player
 let cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
@@ -52,6 +62,14 @@ gltfLoader.load('assets/models/map.glb', function(gltf){
     gltf.scene.scale.set(15, 15, 15);
     scene.add(gltf.scene);
 })
+
+//Ground
+let groundGeometry = new THREE.BoxGeometry(100000, 100000, 1);
+let groundMaterial = new THREE.MeshBasicMaterial({color: 0xFFFF91});
+let ground = new THREE.Mesh(groundGeometry, groundMaterial);
+
+ground.position.z = -3;
+scene.add(ground);
 
 //Lights
 let light = new THREE.SpotLight(0xffffff, 3);
