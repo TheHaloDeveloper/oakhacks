@@ -32,7 +32,7 @@ let cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff0000});
 let cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
 cube.rotation.z = Math.PI / 2;
-cube.position.z = -0.5;
+cube.position.z = 0.5;
 scene.add(cube);
 
 const text = document.createElement('div');
@@ -44,21 +44,23 @@ text.textContent = username;
 const label = new THREE.CSS2DObject(text);
 scene.add(label)
 
-//Ground
-let groundGeometry = new THREE.BoxGeometry(50, 50, 1);
-let groundMaterial = new THREE.MeshLambertMaterial({color: 0x3ce63c});
-let ground = new THREE.Mesh(groundGeometry, groundMaterial);
-
-ground.position.z = -1.5;
-scene.add(ground);
+//Map
+let gltfLoader = new THREE.GLTFLoader();
+gltfLoader.load('assets/models/map.glb', function(gltf){
+    gltf.scene.position.set(80, 0, -2.5);
+    gltf.scene.rotation.x = Math.PI / 2;
+    gltf.scene.scale.set(15, 15, 15);
+    scene.add(gltf.scene);
+})
 
 //Lights
-let spotlight = new THREE.SpotLight(0xffffff, 3, undefined, 1.3, 1);
-spotlight.position.set(0, 0, 10);
-scene.add(spotlight);
+let light = new THREE.SpotLight(0xffffff, 3);
+light.position.set(50, 0, 100);
+scene.add(light);
 
-let ambient = new THREE.AmbientLight(0xffffff, 0.75);
-scene.add(ambient);
+let light2 = new THREE.SpotLight(0xffffff, 3);
+light2.position.set(-50, 0, 100);
+scene.add(light2);
 
 let keyboard = {};
 let player = {
