@@ -24,7 +24,19 @@ function render(){
 
 render();
 
-setInterval(function() {
+let blinkInterval = window.setInterval(blink, 10000);
+
+function startBlink() {
+    blinkInterval = window.setInterval(blink, 10000);
+}
+function stopBlink() {
+    window.clearInterval(blinkInterval);
+}
+
+function blink() {
     tl.to(sphereMesh.material, 0.5, {opacity: 0, ease: "none"})
     tl.to(sphereMesh.material, 0.5, {opacity: 1, ease: "none"})
-}, 10000)
+}
+
+window.addEventListener('focus', startBlink);    
+window.addEventListener('blur', stopBlink);
