@@ -15,17 +15,22 @@
     <script src="three.js-master/build/three.min.js"></script>
 </head>
 <body>
-    <div id="blocker"></div>
     <div id="main">
         <h1 id="title" class="roboto-regular glow">OAKHACKS</h1>
         <input id="usernameInput" type="text" placeholder="Username...">
         <div id="playButton"><p class="roboto-regular noselect">Play</p></div>
     </div>
 
-    <div id="count" class="roboto-regular">3</div>
+    <div id="loading">
+        <img id="loader" src="images/Meltdown.png" width="100px">
+        <img id="icon" src="images/icon.png" width="250px">
+        <h2 id="name" class="roboto-regular">Game Demo</h2>
+        <h3 id="creator" class="roboto-regular">By: Anay Mittal</h3>
+    </div>
 
+    <div id="count" class="roboto-regular">3</div>
     <div id="scene"></div>
-    
+    <div id="blocker"></div>
 </body>
 <script src="main.js"></script>
 </html>

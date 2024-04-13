@@ -89,13 +89,17 @@ document.getElementById("playButton").addEventListener("click", function(){
                         rotation.y = 0.1;
                         tl.to(camera.position, 2, {z: 0})
                         setTimeout(function(){
+                            document.getElementById('blocker').style.backgroundColor = "rgb(45, 45, 45)";
+                            document.getElementById('blocker').style.display = "block";
                             document.getElementById('blocker').style.opacity = 1;
+                            document.getElementById('loading').style.display = "block";
                             scene.remove(sphereMesh)
                             renderer.setClearColor(0x87CEEB)
                             setTimeout(function(){
                                 $("#blocker").fadeOut(1000)
-                            }, 1000)
-                        }, 2000);
+                                $("#loading").fadeOut(1000)
+                            }, 5000)
+                        }, 1500);
                     }, 500)
                 }, 500)
             }, 500)
