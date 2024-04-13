@@ -2,7 +2,7 @@
  * @author Anay Mittal <anayttal@gmail.com>
  */
 let username = new URLSearchParams(window.location.search).get("username")
-history.replaceState({}, document.title, window.location.pathname);
+// history.replaceState({}, document.title, window.location.pathname);
 
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -16,6 +16,13 @@ camera.position.set(0, -22, 13);
 camera.rotation.set(1, 0, 0);
 camera.up.set(0, 0, 1);
 
+let labelRenderer = new THREE.CSS2DRenderer();
+labelRenderer.setSize( window.innerWidth, window.innerHeight );
+labelRenderer.domElement.style.position = 'absolute';
+labelRenderer.domElement.style.top = '0px';
+labelRenderer.domElement.style.pointerEvents = 'none';
+document.getElementById('scene').appendChild(labelRenderer.domElement);
+
 //Controls
 let controls = new THREE.OrbitControls(camera, renderer.domElement);
 
@@ -27,6 +34,15 @@ let cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 cube.rotation.z = Math.PI / 2;
 cube.position.z = -0.5;
 scene.add(cube);
+
+const text = document.createElement('div');
+text.className = 'label';
+text.style.fontSize = "20px"
+text.style.fontFamily = "Verdana"
+text.textContent = username;
+
+const label = new THREE.CSS2DObject(text);
+scene.add(label)
 
 //Ground
 let groundGeometry = new THREE.BoxGeometry(50, 50, 1);
@@ -81,11 +97,14 @@ function onWindowResize(){
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
+    labelRenderer.setSize( window.innerWidth, window.innerHeight );
 }
 
 function render(){
     requestAnimationFrame(render);
     renderer.render(scene, camera);
+    labelRenderer.render(scene, camera);
+    label.position.set(cube.position.x, cube.position.y, cube.position.z + 1);
 
     player_movement();
 }
