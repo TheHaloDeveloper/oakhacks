@@ -11,7 +11,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('scene').appendChild(renderer.domElement)
 
 let sphereGeo = new THREE.SphereGeometry(3, 32, 16)
-let sphereMat = new THREE.MeshNormalMaterial({transparent: true, opacity: 1});
+let sphereMat = new THREE.MeshNormalMaterial({transparent: true});
 let sphereMesh = new THREE.Mesh(sphereGeo, sphereMat);
 
 scene.add(sphereMesh)
@@ -33,9 +33,11 @@ function stopBlink() {
     window.clearInterval(blinkInterval);
 }
 
+document.getElementById("blocker").style.opacity = 0;
+
 function blink() {
-    tl.to(sphereMesh.material, 0.5, {opacity: 0, ease: "none"})
-    tl.to(sphereMesh.material, 0.5, {opacity: 1, ease: "none"})
+    tl.to(document.getElementById("blocker").style, 0.5, {opacity: 1, ease: "none"})
+    tl.to(document.getElementById("blocker").style, 0.5, {opacity: 0, ease: "none"})
 }
 
 window.addEventListener('focus', startBlink);    
