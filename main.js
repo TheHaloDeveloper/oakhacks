@@ -47,5 +47,13 @@ function blink() {
     tl.to(document.getElementById("blocker").style, 0.5, {opacity: 0, ease: "none"})
 }
 
+window.addEventListener('resize', onWindowResize, false);
+
+function onWindowResize(){
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
+
 window.addEventListener('focus', startBlink);    
 window.addEventListener('blur', stopBlink);

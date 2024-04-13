@@ -55,3 +55,46 @@ body {
         text-shadow: 0 0 20px #fff, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000, 0 0 60px #ff0000, 0 0 70px #ff0000, 0 0 80px #ff0000;
     }
 }
+
+#usernameInput {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 25px;
+    width: 300px;
+    height: 25px;
+    border-radius: 15px;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+
+#playButton {
+    width: 150px;
+    height: 75px;
+    border-radius: 15px;
+    background-color: green;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 100px;
+    border: 3px solid black;
+    cursor: pointer;
+}
+
+#playButton p {
+    text-align: center;
+    font-size: 30px;
+    line-height: 75px;
+    margin: 0;
+    color: white;
+}
+
+.noselect {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
