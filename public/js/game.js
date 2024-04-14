@@ -125,10 +125,28 @@ for(let i = 0; i < 10; i++){
         cactusBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
         cactusBB.setFromObject(cactusTrigger);  
 
-        cactusHitboxes.push(cactusBB)
+        cactusHitboxes.push([cactusTrigger, cactusBB])
     })
-    
 }
+
+let checkbox = document.getElementById('debugger')
+let visMode = null;
+
+checkbox.addEventListener('change', (event) => {
+    if (event.currentTarget.checked) {
+        visMode = true;
+    } else {
+        visMode = false;
+    }
+
+    for(let i = 0; i < cactusHitboxes.length; i++){
+        if(visMode){
+            scene.add(cactusHitboxes[i][0])
+        } else {
+            scene.remove(cactusHitboxes[i][0])
+        }
+    }
+})
 
 //Ground
 let groundGeometry = new THREE.BoxGeometry(100000, 100000, 1);
@@ -188,7 +206,7 @@ let touchingCactus = false;
 
 function checkCollisions(){
     for(let i = 0; i < cactusHitboxes.length; i++){
-        if(playerBB.intersectsBox(cactusHitboxes[i])){
+        if(playerBB.intersectsBox(cactusHitboxes[i][1])){
             updateHealth(0);
         }
     }

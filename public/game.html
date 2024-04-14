@@ -26,11 +26,18 @@
     <div id="scene"></div>
 
     <progress id="healthbar" max="100" value="100"></progress>
+
+    <div id="debuggerContainer" class="roboto-regular">
+        <input type="checkbox" id="debugger" name="debugger"/>
+        <label for="debugger">Debugger</label>
+    </div>
+
     <div id="blocker" class="black"></div>
 
     <div id="end" class="black" style="display: none;">
         <h5 id="endheader">Game Over</h5>
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 </body>
