@@ -106,7 +106,8 @@ document.getElementById("playButton").addEventListener("click", function(){
                             document.getElementById('blocker').style.display = "block";
                             document.getElementById('blocker').style.opacity = 1;
                             document.getElementById('loading').style.display = "block";
-                            document.getElementById('desc').style.display = "none"
+                            document.getElementById('desc').style.display = "none";
+                            document.getElementById('info').style.display = "none";
                             introOver = true;
                             scene.remove(sphereMesh)
                             setTimeout(function(){
@@ -123,6 +124,24 @@ document.getElementById("playButton").addEventListener("click", function(){
         }, 1000)
     })
 })
+
+let modal = document.getElementById("infoModal");
+let btn = document.getElementById("info");
+let span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 window.addEventListener('resize', onWindowResize, false);
 window.addEventListener('focus', startBlink);    
