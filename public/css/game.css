@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.ui {
+    position: absolute;
+    top: 0;
+}
+
+#chatPanel {
+    width: 425px;
+    height: 190px;
+    margin-left: 15px;
+    margin-top: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px 10px 0 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#chatForm {
+    position: fixed;
+    top: 205px;
+    left: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 60px;
+    width: 425px;
+    border-radius: 0 0 10px 10px;
+}
+
+#chatInput {
+    width: 378px;
+    height: 30px;
+    outline: none;
+    border: none;
+    background: rgba(211, 211, 211, 0.5);
+    border-radius: 10px;
+    padding-left: 15px;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+#chatInput::placeholder {
+    color: rgb(50, 50, 50);
+    font-size: 15px;
+}
+
+#messages {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin-left: 15px;
+    margin-top: 15px;
+    list-style: none;
+}
+
+#messages > li { 
+    margin-top: 5px;
+}
