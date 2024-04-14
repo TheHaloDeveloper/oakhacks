@@ -16,7 +16,6 @@ let sphereGeo = new THREE.SphereGeometry(3, 32, 16)
 let texture = textureLoader.load('assets/images/texture.jpeg');
 texture.wrapS = THREE.RepeatWrapping;
 texture.wrapT = THREE.RepeatWrapping;
-texture.magFilter = THREE.LinearFilter
 texture.repeat.set(1, 1);
 let sphereMat = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: true, map: texture});
 let sphereMesh = new THREE.Mesh(sphereGeo, sphereMat);
@@ -44,10 +43,10 @@ function render(){
 
 render();
 
-let blinkInterval = window.setInterval(blink, 10000);
+let blinkInterval = window.setInterval(blink, 8000);
 
 function startBlink() {
-    blinkInterval = window.setInterval(blink, 10000);
+    blinkInterval = window.setInterval(blink, 8000);
 }
 function stopBlink() {
     window.clearInterval(blinkInterval);
@@ -59,6 +58,18 @@ function blink() {
     tl.to(document.getElementById("blocker").style, 0.5, {opacity: 1, ease: "none"})
     tl.to(document.getElementById("blocker").style, 0.5, {opacity: 0, ease: "none"})
 }
+
+count = 0
+
+setInterval(function(){
+    if(count % 2 == 0){
+        sphereMat.map.magFilter = THREE.NearestFilter;
+    } else {
+        sphereMat.map.magFilter = THREE.LinearFilter;
+    }
+    texture.needsUpdate = true;
+    count++;
+}, 1000)
 
 function onWindowResize(){
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -95,6 +106,7 @@ document.getElementById("playButton").addEventListener("click", function(){
                             document.getElementById('blocker').style.display = "block";
                             document.getElementById('blocker').style.opacity = 1;
                             document.getElementById('loading').style.display = "block";
+                            document.getElementById('desc').style.display = "none"
                             introOver = true;
                             scene.remove(sphereMesh)
                             setTimeout(function(){
