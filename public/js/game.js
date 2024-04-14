@@ -1,8 +1,14 @@
 /**
  * @author Anay Mittal <anayttal@gmail.com>
  */
+let params = new URLSearchParams(window.location.search)
 
-let username = new URLSearchParams(window.location.search).get("username")
+let username = params.get("username")
+let direct = params.get("direct")
+
+if(direct == null){
+    window.location.href = "../"
+}
 history.replaceState({}, document.title, window.location.pathname);
 
 //Chat

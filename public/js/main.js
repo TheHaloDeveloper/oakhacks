@@ -113,7 +113,7 @@ document.getElementById("playButton").addEventListener("click", function(){
                                 $("#blocker").fadeOut(1000)
                                 $("#loading").fadeOut(1000)
                                 setTimeout(function(){
-                                    window.location.href = `../game.html?username=${username}`
+                                    window.location.href = `../game.html?username=${username}&direct=false`
                                 }, 1000)
                             }, 5000)
                         }, 1500);
