@@ -80,12 +80,32 @@ scene.add(label)
 
 //Map
 let gltfLoader = new THREE.GLTFLoader();
+
 gltfLoader.load('assets/models/map.glb', function(gltf){
     gltf.scene.position.set(80, 0, -2.5);
     gltf.scene.rotation.x = Math.PI / 2;
     gltf.scene.scale.set(15, 15, 15);
     scene.add(gltf.scene);
 })
+
+function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+gltfLoader.load('assets/models/BlueSoldier_Male.gltf', function(gltf){
+    gltf.scene.position.set(0, 10, 0);
+    gltf.scene.rotation.x = Math.PI / 2;
+    scene.add(gltf.scene);
+})
+
+for(let i = 0; i < 100; i++){
+    gltfLoader.load('assets/models/cactus.glb', function(gltf){
+        gltf.scene.position.set(rand(-1000, 1000), rand(-1000, 1000), 0);
+        gltf.scene.rotation.x = Math.PI / 2;
+        scene.add(gltf.scene);
+    })
+}
+
 
 //Ground
 let groundGeometry = new THREE.BoxGeometry(100000, 100000, 1);
