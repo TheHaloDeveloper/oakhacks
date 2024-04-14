@@ -68,3 +68,12 @@ body {
     top: 0;
     opacity: 1;
 }
+
+#healthbar {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    height: 30px;
+    width: 200px;
+    accent-color: rgb(0, 255, 0);
+}
