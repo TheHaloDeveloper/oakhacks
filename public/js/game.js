@@ -6,6 +6,7 @@ let username = new URLSearchParams(window.location.search).get("username")
 history.replaceState({}, document.title, window.location.pathname);
 
 //Chat
+$("#blocker").fadeOut(1000)
 var socket = io();
 
 let messages = document.getElementById('messages');
