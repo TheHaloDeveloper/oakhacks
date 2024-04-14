@@ -69,6 +69,9 @@ cube.rotation.z = Math.PI / 2;
 cube.position.z = 0.5;
 scene.add(cube);
 
+let playerBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
+playerBB.setFromObject(cube);
+
 const text = document.createElement('div');
 text.className = 'label';
 text.style.fontSize = "20px"
@@ -98,14 +101,28 @@ gltfLoader.load('assets/models/BlueSoldier_Male.gltf', function(gltf){
     scene.add(gltf.scene);
 })
 
-for(let i = 0; i < 100; i++){
+let cactusHitboxes = [];
+let cactusTrigger, cactusBB;
+
+for(let i = 0; i < 10; i++){
     gltfLoader.load('assets/models/cactus.glb', function(gltf){
-        gltf.scene.position.set(rand(-1000, 1000), rand(-1000, 1000), 0);
+        gltf.scene.position.set(rand(-100, 100), rand(-100, 100), 0);
         gltf.scene.rotation.x = Math.PI / 2;
         scene.add(gltf.scene);
-    })
-}
+    
+        cactusTrigger = new THREE.Mesh(
+            new THREE.BoxGeometry(2, 2, 20),
+            new THREE.MeshBasicMaterial({color: 0x0000ff, transparent: true, opacity: 0.5})
+        )
+        cactusTrigger.position.copy(gltf.scene.position);
+    
+        cactusBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
+        cactusBB.setFromObject(cactusTrigger);  
 
+        cactusHitboxes.push(cactusBB)
+    })
+    
+}
 
 //Ground
 let groundGeometry = new THREE.BoxGeometry(100000, 100000, 1);
@@ -157,6 +174,20 @@ function player_movement() {
     controls.target.copy(cube.position);
 }
 
+function updateHealth(val) {
+    document.getElementById("healthbar").value = val;
+}
+
+let touchingCactus = false;
+
+function checkCollisions(){
+    for(let i = 0; i < cactusHitboxes.length; i++){
+        if(playerBB.intersectsBox(cactusHitboxes[i])){
+            updateHealth(0);
+        }
+    }
+}
+
 function onWindowResize(){
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -164,13 +195,27 @@ function onWindowResize(){
     labelRenderer.setSize( window.innerWidth, window.innerHeight );
 }
 
-function render(){
-    requestAnimationFrame(render);
-    renderer.render(scene, camera);
-    labelRenderer.render(scene, camera);
-    label.position.set(cube.position.x, cube.position.y, cube.position.z + 1);
+let dead = false;
 
-    player_movement();
+function render(){
+    if(dead == false){
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+        labelRenderer.render(scene, camera);
+        label.position.set(cube.position.x, cube.position.y, cube.position.z + 1);
+        playerBB.copy(cube.geometry.boundingBox).applyMatrix4(cube.matrixWorld);
+    
+        checkCollisions();
+        player_movement();
+    }
+
+    if(document.getElementById("healthbar").value == 0){
+        dead = true;
+
+        setTimeout(function(){
+            $("#end").fadeIn(1000);
+        }, 500)   
+    }
 }
 
 function keyDown(e) {

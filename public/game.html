@@ -25,11 +25,12 @@
 
     <div id="scene"></div>
 
-    <label for="healthbar" id="healthlabel"><span id="health">100</span>/100</label>
     <progress id="healthbar" max="100" value="100"></progress>
+    <div id="blocker" class="black"></div>
 
-
-    <div id="blocker"></div>
+    <div id="end" class="black" style="display: none;">
+        <h5 id="endheader">Game Over</h5>
+    </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 </body>
